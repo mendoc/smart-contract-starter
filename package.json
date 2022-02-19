@@ -1,0 +1,17 @@
+{
+  "name": "smart-contract-starter",
+  "version": "1.0.0",
+  "description": "A starter project to create a smart contract using Solidity",
+  "main": "index.js",
+  "author": "Dimitri ONGOUA",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "browser-sync": "^2.27.7",
+    "lite-server": "^2.6.1",
+    "solc": "^0.8.12"
+  },
+  "scripts": {
+    "dev": "yarn lite-server"
+  }
+}

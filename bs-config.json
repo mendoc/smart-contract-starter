@@ -1,0 +1,8 @@
+{
+    "server": {
+        "baseDir": [
+            "./dapp",
+            "./build/contracts"
+        ]
+    }
+}
