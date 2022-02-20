@@ -4,7 +4,12 @@ let Utils = {
 
 export const message = {
     erreur: {
-        install_metamask: `Prière d'installer l'extention MetaMask et actualisez la page. <a href="https://metamask.io/download/" target="_blank">https://metamask.io/download</a>`
+        install_metamask: `Prière d'installer l'extention MetaMask et actualisez la page. <a href="https://metamask.io/download/" target="_blank">https://metamask.io/download</a>`,
+        adresse_contrat_absente: "Veuillez renseigner l'adresse du contrat",
+        abi_contrat_absent: "Veuillez renseigner l'ABI du contrat",
+        adresse_contrat_invalide: "L'adresse du contrat est invalide",
+        fonction_absente: "Veuillez renseigner une fonction du contrat à exécuter",
+        fonction_invalide: "La fonction demandée n'existe pas dans le contrat", 
     }
 }
 
@@ -27,6 +32,16 @@ export const afficherErreur = (msg) => {
 export const masquerErreur = () => {
     $(".alert-danger").html("")
     $(".alert-danger").hide()
+}
+
+export const afficherRetour = (msg) => {
+    byId("retour").text(msg)
+    $(".alert-light").show()
+}
+
+export const masquerRetour = () => {
+    byId("retour").text("")
+    $(".alert-light").hide()
 }
 
 export const texte = (id, txt) => {

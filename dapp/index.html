@@ -28,12 +28,12 @@
     <div class="container">
         <h1 id="app-nom">Basic Dapp</h1>
         <hr>
-        <div class="alert alert-danger" style="display: none;"></div>
+        <div class="alert alert-danger w-75 m-auto" style="display: none;"></div>
 
         <button id="btn-connexion" class="btn btn-sm btn-warning" style="display: none;">Connecter MetaMask</button>
 
         <div id="compte-infos" class="pt-5 m-auto w-75" style="display: none;">
-            <h2>Informations du compte</h2>
+            <h2 class="border-bottom">Informations du compte</h2>
             <ul class="list-group list-group-flush mt-4">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span class="fw-bold">Adresse :</span>
@@ -52,6 +52,36 @@
                     <span id="trans-nbre">chargement en cours ...</span>
                 </li>
             </ul>
+        </div>
+
+        <div id="contrat" class="pt-5 m-auto w-75" style="display: none;">
+            <h2 class="border-bottom mb-3">Interagir avec un contrat</h2>
+            <form action="">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="contrat-adresse" placeholder="0x456sd4f54d54fd....."
+                        value="0xA482673651225005942122444D00cc61E308872C">
+                    <label for="contrat-adresse">Adresse du contrat</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="contrat-abi" placeholder="[{......}]">
+                    <label for="contrat-abi">ABI du contrat</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="contrat-fonction" disabled></select>
+                    <label for="contrat-fonction">Fonction à exécuter</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="contrat-params" placeholder="12, 56" disabled>
+                    <label for="contrat-params">Paramètres de la fonction <small>(séparés par une
+                            virgule)</small></label>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button id="btn-charger" type="button" class="btn btn-sm btn-primary">Charger le contrat</button>
+                    <button id="btn-executer" type="button" class="btn btn-sm btn-warning"
+                        style="display: none;">Exécuter la fonction</button>
+                </div>
+            </form>
+            <div class="alert alert-light mt-3 text-break" style="display: none;"><pre class="mb-0"><code id="retour"></code></pre></div>
         </div>
     </div>
 

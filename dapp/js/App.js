@@ -11,6 +11,11 @@ const App = {
 
     comptes: null,
 
+    contrat: {
+        adresse: "0x2b8d8B6ed548B46da4607862C265dAFaD9554F92",
+        abi: null
+    },
+
     init: async (ethereum) => {
         // Récupération du provider
         App.provider = new ethers.providers.Web3Provider(ethereum)
