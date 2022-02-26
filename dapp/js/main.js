@@ -1,5 +1,5 @@
 import { ethers } from "./ethers-5.1.esm.min.js";
-import { message, byId, masquerErreur, afficherErreur, afficherRetour, texte, masquerRetour } from "./utils.js"
+import { message, byId, masquerErreur, afficherErreur, afficherRetour, texte, valeur, masquerRetour } from "./utils.js"
 import App from "./App.js";
 
 $(document).ready(async () => {
@@ -56,6 +56,24 @@ $(document).ready(async () => {
         })
     }
 
+    async function chargerInfos() {
+        const adresse = await App.signer.getAddress();
+        const balance = await App.signer.getBalance();
+        const chaineId = await App.signer.getChainId();
+        const transNbre = await App.signer.getTransactionCount();
+
+        texte("adresse", adresse)
+        texte("balance", ethers.utils.formatEther(balance).toString() + " ETH")
+        texte("chaine-id", chaineId)
+        texte("trans-nbre", transNbre)
+
+        valeur("contrat-adresse", localStorage.getItem("contratAdr"))
+        valeur("contrat-abi", localStorage.getItem("contratABI"))
+
+        byId("compte-infos").show()
+        byId("contrat").show()
+    }
+
     function chargerContrat() {
         masquerErreur()
         masquerRetour()
@@ -89,6 +107,8 @@ $(document).ready(async () => {
                     byId("contrat-params").activer()
                 }
             })
+            localStorage.setItem("contratAdr", contratAdresse)
+            localStorage.setItem("contratABI", contratABI)
         } catch (err) {
             afficherErreur(err.message)
         }
@@ -115,7 +135,6 @@ $(document).ready(async () => {
         afficherRetour("Transacrtion en cours ...")
         btnExecuter.desactiver()
         contrat[`${contratFonction}`].apply(null, params).then((ret) => {
-            console.log(typeof ret)
             if (ret.hash) {
                 App.provider.waitForTransaction(ret.hash).then((transaction) => {
                     chargerInfos()
@@ -137,7 +156,13 @@ $(document).ready(async () => {
                 btnExecuter.activer()
             }
         }).catch(err => {
-            afficherErreur(err.message)
+            let msg = ""
+            if (err.data) {
+                msg = err.data.message.replace("VM Exception while processing transaction: revert ", "")
+            } else {
+                msg = err.message
+            }
+            afficherErreur(msg)
             masquerRetour()
             btnExecuter.activer()
         })
@@ -147,20 +172,5 @@ $(document).ready(async () => {
         const contratAdresse = byId("contrat-adresse").val()
         const contratABI = byId("contrat-abi").val()
         return new ethers.Contract(contratAdresse, contratABI, App.signer)
-    }
-
-    async function chargerInfos() {
-        const adresse = await App.signer.getAddress();
-        const balance = await App.signer.getBalance();
-        const chaineId = await App.signer.getChainId();
-        const transNbre = await App.signer.getTransactionCount();
-
-        texte("adresse", adresse)
-        texte("balance", ethers.utils.formatEther(balance).toString() + " ETH")
-        texte("chaine-id", chaineId)
-        texte("trans-nbre", transNbre)
-
-        byId("compte-infos").show()
-        byId("contrat").show()
     }
 })

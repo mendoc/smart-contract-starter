@@ -48,4 +48,8 @@ export const texte = (id, txt) => {
     byId(id).html(txt)
 }
 
+export const valeur = (id, v) => {
+    byId(id).val(v)
+}
+
 export default Utils;
